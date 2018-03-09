@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.SysdayMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Sysday" >
+    <id column="idsysInfo" property="idsysinfo" jdbcType="INTEGER" />
+    <result column="sumReg" property="sumreg" jdbcType="INTEGER" />
+    <result column="sumLog" property="sumlog" jdbcType="INTEGER" />
+    <result column="sumBrowse" property="sumbrowse" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idsysInfo, sumReg, sumLog, sumBrowse, date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sysday
+    where idsysInfo = #{idsysinfo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sysday
+    where idsysInfo = #{idsysinfo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.Sysday" >
+    insert into sysday (idsysInfo, sumReg, sumLog, 
+      sumBrowse, date)
+    values (#{idsysinfo,jdbcType=INTEGER}, #{sumreg,jdbcType=INTEGER}, #{sumlog,jdbcType=INTEGER}, 
+      #{sumbrowse,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.Sysday" >
+    insert into sysday
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idsysinfo != null" >
+        idsysInfo,
+      </if>
+      <if test="sumreg != null" >
+        sumReg,
+      </if>
+      <if test="sumlog != null" >
+        sumLog,
+      </if>
+      <if test="sumbrowse != null" >
+        sumBrowse,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idsysinfo != null" >
+        #{idsysinfo,jdbcType=INTEGER},
+      </if>
+      <if test="sumreg != null" >
+        #{sumreg,jdbcType=INTEGER},
+      </if>
+      <if test="sumlog != null" >
+        #{sumlog,jdbcType=INTEGER},
+      </if>
+      <if test="sumbrowse != null" >
+        #{sumbrowse,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.Sysday" >
+    update sysday
+    <set >
+      <if test="sumreg != null" >
+        sumReg = #{sumreg,jdbcType=INTEGER},
+      </if>
+      <if test="sumlog != null" >
+        sumLog = #{sumlog,jdbcType=INTEGER},
+      </if>
+      <if test="sumbrowse != null" >
+        sumBrowse = #{sumbrowse,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where idsysInfo = #{idsysinfo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Sysday" >
+    update sysday
+    set sumReg = #{sumreg,jdbcType=INTEGER},
+      sumLog = #{sumlog,jdbcType=INTEGER},
+      sumBrowse = #{sumbrowse,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP}
+    where idsysInfo = #{idsysinfo,jdbcType=INTEGER}
+  </update>
+</mapper>

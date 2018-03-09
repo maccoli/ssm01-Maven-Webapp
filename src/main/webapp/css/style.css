@@ -1,0 +1,70 @@
+/*全部*/
+* {  padding: 0px;  margin: 0px;  }
+a {  text-decoration: none;  color: black;  }
+html {  width: 100%;  }
+body {  width: 100%; font-family: "微软雅黑"; }
+ul,li,html,body,h2,span{  margin: 0;  padding: 0;  list-style-type:none;  }
+.clear{  clear:both;  }
+.clear:after{  content: "";  clear:both;  height:0;  display:block;  }
+
+/*表单元素*/
+.text-input {  height: 28px;  width: 280px;  border: 1px solid #ccc;  border-radius: 4px; /*outline: none;*/  }
+.input_radio {  margin-right: 10px;  }
+input[type="text"] {  padding: 2px 10px;  }
+.select {  height: 32px;  width: 284px;  border: 1px solid #ccc;  border-radius: 4px;  padding: 2px 10px; }
+.textarea{  width: 50%;  height: 200px;  line-height: 30px;  padding: 5px 10px;  border-radius: 4px;  border: 1px solid #ccc  }
+.input-long{  width: 50%;}
+
+/*上传图片按钮*/
+.div-file-btn-input{
+  width: 90px;height: 32px;margin: 0px auto;
+}
+.a-file-btn-input {  background: #F2F2F2;  position: relative;  border: 1px solid #F2F2F2;  border-radius: 4px;font-size: small;                              text-align: center;  width: 90px;  display: block;  height: 32px;  box-sizing: border-box;  float: left;  }
+w {  position: absolute;  height: 32px;  line-height: 32px;  width: 90px;  left: 0px;  top: 0px;  }
+.file-btn-input {  position: absolute;  opacity: 0;  left: 0px;  top: 0px;  width: 90px;  height: 32px;  }
+
+/*表单*/
+.form {  width: 100%; font-family: "微软雅黑";  }
+.form .formtr {  margin: 5px 0px 10px 0px;  }
+.form .formtrp {  height: 40px;  line-height: 40px;  }
+.form .formtrDiv {  line-height: 40px;  }
+.form .formtrDiv .tx {  height: 200px;  width: 200px;  }
+.form .formtrDiv .view{ width: 66%;  height: 320px;}
+.form>p>span {  width: 100px;  margin-right: 20px;  vertical-align: top;  user-select: none;  float: left;text-align-last: justify;                 min-height: 20px;  }
+.form>.formtrDiv>span {  width: 100px;  margin-right: 20px;  vertical-align: top;  user-select: none;  float: left;text-align-last: justify;                 min-height: 20px;  }
+.form .btn {  margin-right: 30px;  }
+.form .btnbar {  margin-top: 30px  ;  margin-bottom: 30px  ;  clear: both;}
+.form .btnbar-right {  text-align: right;padding-right: 20%}
+
+
+/*按钮*/
+.btn {  padding: 10px 20px;  height: auto; border-radius: 4px;  background: #FFDE3A;  border: 0px;  }
+.btn-sm{  padding: 5px 10px; font-size: small}
+.btn-gray {background: #ccc;  }
+.btn-blue {  background: #0c8bcc;  }
+.upload {  padding: 4px 10px;  height: 20px;  line-height: 20px;  position: relative;  border: 1px solid #999;  text-decoration: none;  color: #666;  }
+.change {  position: absolute;  overflow: hidden;  right: 0;  top: 0;  opacity: 0;  }
+.btn-close{
+  float: right;
+  background: url(../images/close.png) no-repeat center center #ccc;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 16px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 0px;
+  outline: none;
+  box-shadow: rgba(76,76,76,0.7) 1px 1px 5px;
+  margin-top: -9px;
+  margin-right: -9px;
+}
+
+/*字体颜色*/
+.time {  color: #cccccc;  }   /*时间*/
+.gray {  color: #ccc;;  }
+.gray9 {  color: #999999;  }
+.green {  color: green;  }
+.red {  color: red;  }
+
+

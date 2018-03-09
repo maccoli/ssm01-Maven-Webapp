@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="useremail" property="useremail" jdbcType="VARCHAR" />
+    <result column="userpassword" property="userpassword" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="fans" property="fans" jdbcType="INTEGER" />
+    <result column="experience" property="experience" jdbcType="INTEGER" />
+    <result column="headPic" property="headpic" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="birth" property="birth" jdbcType="DATE" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="attention" property="attention" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="favorite" property="favorite" jdbcType="CHAR" />
+    <result column="articles" property="articles" jdbcType="INTEGER" />
+    <result column="routes" property="routes" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="keyVal" property="keyval" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, useremail, userpassword, level, fans, experience, headPic, sex, birth, signature, 
+    attention, city, phone, wechat, favorite, articles, routes, username, keyVal, active
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPwd" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.User" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{username,jdbcType=VARCHAR}<!--  and userpassword = #{userpassword,jdbcType=VARCHAR} -->
+  </select>
+  
+  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.User" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where useremail = #{useremail,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.User" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAllUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+  </select>
+  
+  <select id="selectByKeyVal" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where keyVal = #{keyVal,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.User" >
+    insert into user (userid, useremail, userpassword, 
+      level, fans, experience, 
+      sex, birth, signature, 
+      attention, city, phone, 
+      wechat, favorite, articles, 
+      routes, username, keyVal, 
+      active)
+    values (#{userid,jdbcType=INTEGER}, #{useremail,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{fans,jdbcType=INTEGER}, #{experience,jdbcType=INTEGER}, 
+      #{sex,jdbcType=CHAR}, #{birth,jdbcType=DATE}, #{signature,jdbcType=VARCHAR}, 
+      #{attention,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{favorite,jdbcType=CHAR}, #{articles,jdbcType=INTEGER}, 
+      #{routes,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{keyval,jdbcType=VARCHAR}, 
+      #{active,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="useremail != null" >
+        useremail,
+      </if>
+      <if test="userpassword != null" >
+        userpassword,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="fans != null" >
+        fans,
+      </if>
+      <if test="experience != null" >
+        experience,
+      </if>
+      <if test="headpic != null" >
+        headPic,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="attention != null" >
+        attention,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="favorite != null" >
+        favorite,
+      </if>
+      <if test="articles != null" >
+        articles,
+      </if>
+      <if test="routes != null" >
+        routes,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="keyval != null" >
+        keyVal,
+      </if>
+      <if test="active != null" >
+        active,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null" >
+        #{fans,jdbcType=INTEGER},
+      </if>
+      <if test="experience != null" >
+        #{experience,jdbcType=INTEGER},
+      </if>
+      <if test="headpic != null" >
+        #{headpic,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=DATE},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null" >
+        #{attention,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="favorite != null" >
+        #{favorite,jdbcType=CHAR},
+      </if>
+      <if test="articles != null" >
+        #{articles,jdbcType=INTEGER},
+      </if>
+      <if test="routes != null" >
+        #{routes,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="keyval != null" >
+        #{keyval,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.User" >
+    update user
+    <set >
+      <if test="useremail != null" >
+        useremail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userpassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null" >
+        fans = #{fans,jdbcType=INTEGER},
+      </if>
+      <if test="experience != null" >
+        experience = #{experience,jdbcType=INTEGER},
+      </if>
+      <if test="headpic != null" >
+        headPic = #{headpic,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=DATE},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null" >
+        attention = #{attention,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="favorite != null" >
+        favorite = #{favorite,jdbcType=CHAR},
+      </if>
+      <if test="articles != null" >
+        articles = #{articles,jdbcType=INTEGER},
+      </if>
+      <if test="routes != null" >
+        routes = #{routes,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="keyval != null" >
+        keyVal = #{keyval,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        active = #{active,jdbcType=TINYINT},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.User" >
+    update user
+    set useremail = #{useremail,jdbcType=VARCHAR},
+      userpassword = #{userpassword,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      fans = #{fans,jdbcType=INTEGER},
+      experience = #{experience,jdbcType=INTEGER},
+      headPic = #{headpic,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birth = #{birth,jdbcType=DATE},
+      signature = #{signature,jdbcType=VARCHAR},
+      attention = #{attention,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      favorite = #{favorite,jdbcType=CHAR},
+      articles = #{articles,jdbcType=INTEGER},
+      routes = #{routes,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      keyVal = #{keyval,jdbcType=VARCHAR},
+      active = #{active,jdbcType=TINYINT}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateActive" parameterType="com.cn.hnust.pojo.User" >
+    update user
+    <set >
+      <if test="active != null" >
+        active = #{active,jdbcType=TINYINT},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="deleteKeyVal">
+    update user
+	set keyVal = 1
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

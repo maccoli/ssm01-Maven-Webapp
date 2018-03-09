@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.AuthenticationMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Authentication">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="realid" property="realid" jdbcType="VARCHAR" />
+		<result column="idcardo" property="idcardo" jdbcType="VARCHAR" />
+		<result column="idcardx" property="idcardx" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="remarkphoto" property="remarkphoto" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="addAutn" parameterType="com.cn.hnust.pojo.Authentication">
+		insert into
+		authentication(userid,realname,realid,idcardo,idcardx,remarks,remarkphoto)
+		values(#{userid,jdbcType=INTEGER},#{realname,jdbcType=VARCHAR},#{realid,jdbcType=INTEGER},
+		#{idcardo,jdbcType=VARCHAR},#{idcardx,jdbcType=VARCHAR},#{remarks,jdbcType=VARCHAR},#{remarkphoto,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="getAuth" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM authentication
+		WHERE userid = #{userid,jdbcType=INTEGER}
+	</select>
+
+</mapper>

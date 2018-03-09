@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.CountryMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Country">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sights" property="sights" jdbcType="INTEGER" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="AC" property="ac" jdbcType="VARCHAR" />
+		<result column="RC" property="rc" jdbcType="VARCHAR" />
+		<result column="CC" property="cc" jdbcType="VARCHAR" />
+		<result column="TARGETSUM" property="targetsum" jdbcType="INTEGER" />
+		<result column="SCORE" property="score" jdbcType="DOUBLE" />
+		<result column="mianPic" property="mianpic" jdbcType="VARCHAR" />
+		<result column="hotels" property="hotels" jdbcType="INTEGER" />
+		<result column="restaurants" property="restaurants" jdbcType="INTEGER" />
+		<result column="examine" property="examine" jdbcType="INTEGER" />
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="countryType" property="countrytype" jdbcType="CHAR" />
+		<result column="addtime" property="addtime" jdbcType="DATE" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.CountryWithBLOBs"
+		extends="BaseResultMap">
+		<result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+		<result column="culture" property="culture" jdbcType="LONGVARCHAR" />
+		<result column="activities" property="activities" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, sights, location, AC, RC, CC, TARGETSUM, SCORE,
+		mianPic,
+		hotels, restaurants,
+		examine, userid, username, countryType,
+		addtime
+	</sql>
+	<sql id="Blob_Column_List">
+		introduce, culture, activities
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from country
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getByName" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from country
+		where name = #{name,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getAllNames" resultType="java.lang.String"
+		parameterType="java.lang.Integer">
+		select name from country
+	</select>
+
+	<select id="getUserCountrysides" resultType="com.cn.hnust.pojo.CountryWithBLOBs">
+		SELECT *
+		FROM country
+		WHERE id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="getCountrysByType" resultMap="ResultMapWithBLOBs"
+		parameterType="Map">
+		SELECT id,name,mianpic,countryType FROM country WHERE
+		FIND_IN_SET(#{type},countryType)
+		And ( name like CONCAT(CONCAT('%',
+		#{content}), '%') OR location like CONCAT(CONCAT('%', #{content}),
+		'%') )
+		<if test="start!=null and pagesize!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</select>
+
+
+	<select id="getCountrysByType2" resultMap="ResultMapWithBLOBs"
+		parameterType="Map">
+		SELECT id,name,mianpic,countryType FROM country WHERE
+		name like
+		CONCAT(CONCAT('%', #{content}), '%') OR location like
+		CONCAT(CONCAT('%', #{content}), '%')
+		<if test="start!=null and pagesize!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</select>
+
+	<select id="getCountryByPage" resultMap="ResultMapWithBLOBs"
+		parameterType="Map">
+		SELECT * FROM country
+		<if test="start!=null and pagesize!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</select>
+
+	<update id="updateSights" parameterType="com.cn.hnust.pojo.Country">
+		update country
+		set sights
+		= sights - 1
+		where id =#{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateHotels" parameterType="com.cn.hnust.pojo.Country">
+		update country
+		set hotels
+		= hotels - 1
+		where id =#{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateRestaurants" parameterType="com.cn.hnust.pojo.Country">
+		update country
+		set
+		restaurants = restaurants - 1
+		where id =#{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		country
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hnust.pojo.CountryWithBLOBs">
+		insert into country (id, name,
+		sights,
+		location, AC, RC, CC,
+		TARGETSUM, SCORE, mianPic,
+		hotels,
+		restaurants, examine,
+		userid, username, countryType,
+		addtime, introduce,
+		culture,
+		activities)
+		values (#{id,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{sights,jdbcType=INTEGER},
+		#{location,jdbcType=VARCHAR}, #{ac,jdbcType=VARCHAR},
+		#{rc,jdbcType=VARCHAR},
+		#{cc,jdbcType=VARCHAR},
+		#{targetsum,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE},
+		#{mianpic,jdbcType=VARCHAR},
+		#{hotels,jdbcType=INTEGER},
+		#{restaurants,jdbcType=INTEGER},
+		#{examine,jdbcType=INTEGER},
+		#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
+		#{countrytype,jdbcType=CHAR},
+		#{addtime,jdbcType=DATE},
+		#{introduce,jdbcType=LONGVARCHAR},
+		#{culture,jdbcType=LONGVARCHAR},
+		#{activities,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hnust.pojo.CountryWithBLOBs">
+		insert into country
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sights != null">
+				sights,
+			</if>
+			<if test="location != null">
+				location,
+			</if>
+			<if test="ac != null">
+				AC,
+			</if>
+			<if test="rc != null">
+				RC,
+			</if>
+			<if test="cc != null">
+				CC,
+			</if>
+			<if test="targetsum != null">
+				TARGETSUM,
+			</if>
+			<if test="score != null">
+				SCORE,
+			</if>
+			<if test="mianpic != null">
+				mianPic,
+			</if>
+			<if test="hotels != null">
+				hotels,
+			</if>
+			<if test="restaurants != null">
+				restaurants,
+			</if>
+			<if test="examine != null">
+				examine,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="countrytype != null">
+				countryType,
+			</if>
+			<if test="addtime != null">
+				addtime,
+			</if>
+			<if test="introduce != null">
+				introduce,
+			</if>
+			<if test="culture != null">
+				culture,
+			</if>
+			<if test="activities != null">
+				activities,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sights != null">
+				#{sights,jdbcType=INTEGER},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+			<if test="ac != null">
+				#{ac,jdbcType=VARCHAR},
+			</if>
+			<if test="rc != null">
+				#{rc,jdbcType=VARCHAR},
+			</if>
+			<if test="cc != null">
+				#{cc,jdbcType=VARCHAR},
+			</if>
+			<if test="targetsum != null">
+				#{targetsum,jdbcType=INTEGER},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=DOUBLE},
+			</if>
+			<if test="mianpic != null">
+				#{mianpic,jdbcType=VARCHAR},
+			</if>
+			<if test="hotels != null">
+				#{hotels,jdbcType=INTEGER},
+			</if>
+			<if test="restaurants != null">
+				#{restaurants,jdbcType=INTEGER},
+			</if>
+			<if test="examine != null">
+				#{examine,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="countrytype != null">
+				#{countrytype,jdbcType=CHAR},
+			</if>
+			<if test="addtime != null">
+				#{addtime,jdbcType=DATE},
+			</if>
+			<if test="introduce != null">
+				#{introduce,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="culture != null">
+				#{culture,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="activities != null">
+				#{activities,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.CountryWithBLOBs">
+		update country
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sights != null">
+				sights = #{sights,jdbcType=INTEGER},
+			</if>
+			<if test="location != null">
+				location = #{location,jdbcType=VARCHAR},
+			</if>
+			<if test="ac != null">
+				AC = #{ac,jdbcType=VARCHAR},
+			</if>
+			<if test="rc != null">
+				RC = #{rc,jdbcType=VARCHAR},
+			</if>
+			<if test="cc != null">
+				CC = #{cc,jdbcType=VARCHAR},
+			</if>
+			<if test="targetsum != null">
+				TARGETSUM = #{targetsum,jdbcType=INTEGER},
+			</if>
+			<if test="score != null">
+				SCORE = #{score,jdbcType=DOUBLE},
+			</if>
+			<if test="mianpic != null">
+				mianPic = #{mianpic,jdbcType=VARCHAR},
+			</if>
+			<if test="hotels != null">
+				hotels = #{hotels,jdbcType=INTEGER},
+			</if>
+			<if test="restaurants != null">
+				restaurants = #{restaurants,jdbcType=INTEGER},
+			</if>
+			<if test="examine != null">
+				examine = #{examine,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="countrytype != null">
+				countryType = #{countrytype,jdbcType=CHAR},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=DATE},
+			</if>
+			<if test="introduce != null">
+				introduce = #{introduce,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="culture != null">
+				culture = #{culture,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="activities != null">
+				activities = #{activities,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.pojo.CountryWithBLOBs">
+		update
+		country
+		set name = #{name,jdbcType=VARCHAR},
+		sights =
+		#{sights,jdbcType=INTEGER},
+		location = #{location,jdbcType=VARCHAR},
+		AC
+		= #{ac,jdbcType=VARCHAR},
+		RC = #{rc,jdbcType=VARCHAR},
+		CC =
+		#{cc,jdbcType=VARCHAR},
+		TARGETSUM = #{targetsum,jdbcType=INTEGER},
+		SCORE = #{score,jdbcType=DOUBLE},
+		mianPic =
+		#{mianpic,jdbcType=VARCHAR},
+		hotels = #{hotels,jdbcType=INTEGER},
+		restaurants = #{restaurants,jdbcType=INTEGER},
+		examine =
+		#{examine,jdbcType=INTEGER},
+		userid = #{userid,jdbcType=INTEGER},
+		username = #{username,jdbcType=VARCHAR},
+		countryType =
+		#{countrytype,jdbcType=CHAR},
+		addtime = #{addtime,jdbcType=DATE},
+		introduce = #{introduce,jdbcType=LONGVARCHAR},
+		culture =
+		#{culture,jdbcType=LONGVARCHAR},
+		activities =
+		#{activities,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Country">
+		update country
+		set
+		name = #{name,jdbcType=VARCHAR},
+		sights = #{sights,jdbcType=INTEGER},
+		location = #{location,jdbcType=VARCHAR},
+		AC = #{ac,jdbcType=VARCHAR},
+		RC = #{rc,jdbcType=VARCHAR},
+		CC = #{cc,jdbcType=VARCHAR},
+		TARGETSUM =
+		#{targetsum,jdbcType=INTEGER},
+		SCORE = #{score,jdbcType=DOUBLE},
+		mianPic = #{mianpic,jdbcType=VARCHAR},
+		hotels =
+		#{hotels,jdbcType=INTEGER},
+		restaurants =
+		#{restaurants,jdbcType=INTEGER},
+		examine = #{examine,jdbcType=INTEGER},
+		userid = #{userid,jdbcType=INTEGER},
+		username =
+		#{username,jdbcType=VARCHAR},
+		countryType =
+		#{countrytype,jdbcType=CHAR},
+		addtime = #{addtime,jdbcType=DATE}
+		where
+		id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

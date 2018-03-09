@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.HotelMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Hotel" >
+    <id column="idhotel" property="idhotel" jdbcType="INTEGER" />
+    <result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="mainPic" property="mainpic" jdbcType="VARCHAR" />
+    <result column="lowPrice" property="lowprice" jdbcType="DOUBLE" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="video" property="video" jdbcType="VARCHAR" />
+    <result column="detailLocation" property="detaillocation" jdbcType="VARCHAR" />
+    <result column="PassengerSum" property="passengersum" jdbcType="INTEGER" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="pice" property="pice" jdbcType="VARCHAR" />
+    <result column="examine" property="examine" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.Hotel" extends="BaseResultMap" >
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idhotel, hotelname, score, mainPic, lowPrice, location, phone, video, detailLocation, 
+    PassengerSum, country_id, addtime, pice, examine, userid, username
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduce
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hotel
+    where idhotel = #{idhotel,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCountryHotels" resultMap="ResultMapWithBLOBs" parameterType="com.cn.hnust.pojo.CountryWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hotel
+    where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotel
+    where idhotel = #{idhotel,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCountrysideId" parameterType="java.lang.Integer" >
+    delete from hotel
+    where country_id = #{countrysideId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.cn.hnust.pojo.Hotel" >
+    insert into hotel (idhotel, hotelname, score, 
+      mainPic, lowPrice, location, 
+      phone, video, detailLocation, 
+      PassengerSum, country_id, addtime, 
+      pice, examine, userid, 
+      username, introduce)
+    values (#{idhotel,jdbcType=INTEGER}, #{hotelname,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, 
+      #{mainpic,jdbcType=VARCHAR}, #{lowprice,jdbcType=DOUBLE}, #{location,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR}, #{detaillocation,jdbcType=VARCHAR}, 
+      #{passengersum,jdbcType=INTEGER}, #{countryId,jdbcType=INTEGER}, #{addtime,jdbcType=VARCHAR}, 
+      #{pice,jdbcType=VARCHAR}, #{examine,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{introduce,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.Hotel" >
+    insert into hotel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idhotel != null" >
+        idhotel,
+      </if>
+      <if test="hotelname != null" >
+        hotelname,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="mainpic != null" >
+        mainPic,
+      </if>
+      <if test="lowprice != null" >
+        lowPrice,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="video != null" >
+        video,
+      </if>
+      <if test="detaillocation != null" >
+        detailLocation,
+      </if>
+      <if test="passengersum != null" >
+        PassengerSum,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="pice != null" >
+        pice,
+      </if>
+      <if test="examine != null" >
+        examine,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idhotel != null" >
+        #{idhotel,jdbcType=INTEGER},
+      </if>
+      <if test="hotelname != null" >
+        #{hotelname,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="mainpic != null" >
+        #{mainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="lowprice != null" >
+        #{lowprice,jdbcType=DOUBLE},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="detaillocation != null" >
+        #{detaillocation,jdbcType=VARCHAR},
+      </if>
+      <if test="passengersum != null" >
+        #{passengersum,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pice != null" >
+        #{pice,jdbcType=VARCHAR},
+      </if>
+      <if test="examine != null" >
+        #{examine,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.Hotel" >
+    update hotel
+    <set >
+      <if test="hotelname != null" >
+        hotelname = #{hotelname,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="mainpic != null" >
+        mainPic = #{mainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="lowprice != null" >
+        lowPrice = #{lowprice,jdbcType=DOUBLE},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="detaillocation != null" >
+        detailLocation = #{detaillocation,jdbcType=VARCHAR},
+      </if>
+      <if test="passengersum != null" >
+        PassengerSum = #{passengersum,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pice != null" >
+        pice = #{pice,jdbcType=VARCHAR},
+      </if>
+      <if test="examine != null" >
+        examine = #{examine,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where idhotel = #{idhotel,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.pojo.Hotel" >
+    update hotel
+    set hotelname = #{hotelname,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      mainPic = #{mainpic,jdbcType=VARCHAR},
+      lowPrice = #{lowprice,jdbcType=DOUBLE},
+      location = #{location,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      detailLocation = #{detaillocation,jdbcType=VARCHAR},
+      PassengerSum = #{passengersum,jdbcType=INTEGER},
+      country_id = #{countryId,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      pice = #{pice,jdbcType=VARCHAR},
+      examine = #{examine,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=LONGVARCHAR}
+    where idhotel = #{idhotel,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Hotel" >
+    update hotel
+    set hotelname = #{hotelname,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      mainPic = #{mainpic,jdbcType=VARCHAR},
+      lowPrice = #{lowprice,jdbcType=DOUBLE},
+      location = #{location,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      detailLocation = #{detaillocation,jdbcType=VARCHAR},
+      PassengerSum = #{passengersum,jdbcType=INTEGER},
+      country_id = #{countryId,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      pice = #{pice,jdbcType=VARCHAR},
+      examine = #{examine,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR}
+    where idhotel = #{idhotel,jdbcType=INTEGER}
+  </update>
+</mapper>

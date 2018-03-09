@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.ScenicspotMapper2" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.ScenicSpot" >
+ <id column="scenicspotid" property="scenicspotid" jdbcType="INTEGER"/>
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="synosis" property="synosis" jdbcType="VARCHAR" />
+   <result column="location" property="location" jdbcType="VARCHAR" />
+   <result column="price" property="price" jdbcType="INTEGER" />
+   <result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+   <result column="address" property="address" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+   <result column="cover" property="cover" jdbcType="VARCHAR" />
+   <result column="pices" property="pices" jdbcType="VARCHAR" />
+   <result column="video" property="video" jdbcType="VARCHAR" />
+   <result column="examine" property="examine" jdbcType="INTEGER" />
+   <result column="userid" property="userid" jdbcType="INTEGER" /> 
+   <result column="username" property="username" jdbcType="VARCHAR" />
+   <result column="country_id" property="countryId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <insert id="insertScenicspot" parameterType="com.cn.hnust.pojo.ScenicSpot">
+  insert into scenicspot(name,synosis,location,price,cinformation,address,cover,pices,video,userid,username,addtime,country_id)
+  values(#{name,jdbcType=VARCHAR},#{synosis,jdbcType=VARCHAR},#{location,jdbcType=VARCHAR},
+  #{price,jdbcType=INTEGER},#{cinformation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},
+  #{cover,jdbcType=VARCHAR},#{pices,jdbcType=VARCHAR},#{video,jdbcType=VARCHAR},
+  #{userid,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{addtime,jdbcType=DATE},#{countryId,jdbcType=INTEGER})
+  </insert>
+
+</mapper>

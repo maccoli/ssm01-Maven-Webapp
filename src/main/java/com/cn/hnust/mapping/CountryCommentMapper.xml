@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.CountryCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.CountryComment" >
+    <id column="idCountryComment" property="idcountrycomment" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="NiceSum" property="nicesum" jdbcType="INTEGER" />
+    <result column="BadSum" property="badsum" jdbcType="INTEGER" />
+    <result column="DeliverTime" property="delivertime" jdbcType="TIMESTAMP" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="user_userid" property="userUserid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.CountryComment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idCountryComment, score, NiceSum, BadSum, DeliverTime, country_id, user_userid
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from countrycomment
+    where idCountryComment = #{idcountrycomment,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCountryComments" resultMap="ResultMapWithBLOBs" parameterType="com.cn.hnust.pojo.CountryWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,username,headpic
+    from countrycomment,user
+    where country_id = #{id,jdbcType=INTEGER} AND countrycomment.user_userid = user.userid ORDER BY DeliverTime DESC
+ </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from countrycomment
+    where idCountryComment = #{idcountrycomment,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBycountry_id" parameterType="java.lang.Integer" >
+    delete from countrycomment
+    where country_id = #{countrysideId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.cn.hnust.pojo.CountryComment" >
+    insert into countrycomment (idCountryComment, score, NiceSum, 
+      BadSum, DeliverTime, country_id, 
+      user_userid, content)
+    values (#{idcountrycomment,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE}, #{nicesum,jdbcType=INTEGER}, 
+      #{badsum,jdbcType=INTEGER}, #{delivertime,jdbcType=TIMESTAMP}, #{countryId,jdbcType=INTEGER}, 
+      #{userUserid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.CountryComment" >
+    insert into countrycomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idcountrycomment != null" >
+        idCountryComment,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="nicesum != null" >
+        NiceSum,
+      </if>
+      <if test="badsum != null" >
+        BadSum,
+      </if>
+      <if test="delivertime != null" >
+        DeliverTime,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="userUserid != null" >
+        user_userid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idcountrycomment != null" >
+        #{idcountrycomment,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="nicesum != null" >
+        #{nicesum,jdbcType=INTEGER},
+      </if>
+      <if test="badsum != null" >
+        #{badsum,jdbcType=INTEGER},
+      </if>
+      <if test="delivertime != null" >
+        #{delivertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="userUserid != null" >
+        #{userUserid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.CountryComment" >
+    update countrycomment
+    <set >
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="nicesum != null" >
+        NiceSum = #{nicesum,jdbcType=INTEGER},
+      </if>
+      <if test="badsum != null" >
+        BadSum = #{badsum,jdbcType=INTEGER},
+      </if>
+      <if test="delivertime != null" >
+        DeliverTime = #{delivertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="userUserid != null" >
+        user_userid = #{userUserid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where idCountryComment = #{idcountrycomment,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.pojo.CountryComment" >
+    update countrycomment
+    set score = #{score,jdbcType=DOUBLE},
+      NiceSum = #{nicesum,jdbcType=INTEGER},
+      BadSum = #{badsum,jdbcType=INTEGER},
+      DeliverTime = #{delivertime,jdbcType=TIMESTAMP},
+      country_id = #{countryId,jdbcType=INTEGER},
+      user_userid = #{userUserid,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where idCountryComment = #{idcountrycomment,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.CountryComment" >
+    update countrycomment
+    set score = #{score,jdbcType=DOUBLE},
+      NiceSum = #{nicesum,jdbcType=INTEGER},
+      BadSum = #{badsum,jdbcType=INTEGER},
+      DeliverTime = #{delivertime,jdbcType=TIMESTAMP},
+      country_id = #{countryId,jdbcType=INTEGER},
+      user_userid = #{userUserid,jdbcType=INTEGER}
+    where idCountryComment = #{idcountrycomment,jdbcType=INTEGER}
+  </update>
+</mapper>

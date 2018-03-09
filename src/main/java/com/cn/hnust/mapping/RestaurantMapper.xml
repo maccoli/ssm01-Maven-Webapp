@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.RestaurantMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Restaurant" >
+    <id column="restaurantid" property="restaurantid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="perprice" property="perprice" jdbcType="INTEGER" />
+    <result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="pices" property="pices" jdbcType="VARCHAR" />
+    <result column="video" property="video" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="examine" property="examine" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.Restaurant" extends="BaseResultMap" >
+    <result column="synopsis" property="synopsis" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    restaurantid, name, location, perprice, cinformation, address, cover, pices, video, 
+    country_id, addtime, examine, userid, username
+  </sql>
+  <sql id="Blob_Column_List" >
+    synopsis
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from restaurant
+    where restaurantid = #{restaurantid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCountryRestaurants" resultMap="ResultMapWithBLOBs" parameterType="com.cn.hnust.pojo.CountryWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from restaurant
+    where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from restaurant
+    where restaurantid = #{restaurantid,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByCountrysideId" parameterType="java.lang.Integer" >
+    delete from restaurant
+    where country_id = #{countrysideId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.cn.hnust.pojo.Restaurant" >
+    insert into restaurant (restaurantid, name, location, 
+      perprice, cinformation, address, 
+      cover, pices, video, 
+      country_id, addtime, examine, 
+      userid, username, synopsis
+      )
+    values (#{restaurantid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{perprice,jdbcType=INTEGER}, #{cinformation,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{pices,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR}, 
+      #{countryId,jdbcType=INTEGER}, #{addtime,jdbcType=VARCHAR}, #{examine,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{synopsis,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.Restaurant" >
+    insert into restaurant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="restaurantid != null" >
+        restaurantid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="perprice != null" >
+        perprice,
+      </if>
+      <if test="cinformation != null" >
+        cinformation,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="pices != null" >
+        pices,
+      </if>
+      <if test="video != null" >
+        video,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="examine != null" >
+        examine,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="synopsis != null" >
+        synopsis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="restaurantid != null" >
+        #{restaurantid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="perprice != null" >
+        #{perprice,jdbcType=INTEGER},
+      </if>
+      <if test="cinformation != null" >
+        #{cinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="pices != null" >
+        #{pices,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="examine != null" >
+        #{examine,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null" >
+        #{synopsis,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.Restaurant" >
+    update restaurant
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="perprice != null" >
+        perprice = #{perprice,jdbcType=INTEGER},
+      </if>
+      <if test="cinformation != null" >
+        cinformation = #{cinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="pices != null" >
+        pices = #{pices,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="examine != null" >
+        examine = #{examine,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null" >
+        synopsis = #{synopsis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where restaurantid = #{restaurantid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.pojo.Restaurant" >
+    update restaurant
+    set name = #{name,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      perprice = #{perprice,jdbcType=INTEGER},
+      cinformation = #{cinformation,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      pices = #{pices,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      examine = #{examine,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      synopsis = #{synopsis,jdbcType=LONGVARCHAR}
+    where restaurantid = #{restaurantid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Restaurant" >
+    update restaurant
+    set name = #{name,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      perprice = #{perprice,jdbcType=INTEGER},
+      cinformation = #{cinformation,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      pices = #{pices,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      examine = #{examine,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR}
+    where restaurantid = #{restaurantid,jdbcType=INTEGER}
+  </update>
+</mapper>

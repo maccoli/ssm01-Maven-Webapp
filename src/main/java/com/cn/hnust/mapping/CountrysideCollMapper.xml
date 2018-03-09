@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.CountrysideCollMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.CountrysideColl" >
+    <id column="idCountrysideColl" property="idcountrysidecoll" jdbcType="INTEGER" />
+    <result column="CollTime" property="colltime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="user_userid" property="userUserid" jdbcType="INTEGER" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="mainPic" property="mainpic" jdbcType="VARCHAR" />
+    <result column="countryside_name" property="countrysideName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idCountrysideColl, CollTime, remark, user_userid, country_id, mainPic, countryside_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from countrysidecoll
+    where idCountrysideColl = #{idcountrysidecoll,jdbcType=INTEGER}
+  </select>
+  <select id="getUserColl" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from countrysidecoll
+    where user_userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from countrysidecoll
+    where idCountrysideColl = #{idcountrysidecoll,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.CountrysideColl" >
+    insert into countrysidecoll (idCountrysideColl, CollTime, remark, 
+      user_userid, country_id, mainPic, 
+      countryside_name)
+    values (#{idcountrysidecoll,jdbcType=INTEGER}, #{colltime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{userUserid,jdbcType=INTEGER}, #{countryId,jdbcType=INTEGER}, #{mainpic,jdbcType=VARCHAR}, 
+      #{countrysideName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.CountrysideColl" >
+    insert into countrysidecoll
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idcountrysidecoll != null" >
+        idCountrysideColl,
+      </if>
+      <if test="colltime != null" >
+        CollTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="userUserid != null" >
+        user_userid,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="mainpic != null" >
+        mainPic,
+      </if>
+      <if test="countrysideName != null" >
+        countryside_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idcountrysidecoll != null" >
+        #{idcountrysidecoll,jdbcType=INTEGER},
+      </if>
+      <if test="colltime != null" >
+        #{colltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userUserid != null" >
+        #{userUserid,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="mainpic != null" >
+        #{mainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="countrysideName != null" >
+        #{countrysideName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.CountrysideColl" >
+    update countrysidecoll
+    <set >
+      <if test="colltime != null" >
+        CollTime = #{colltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userUserid != null" >
+        user_userid = #{userUserid,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="mainpic != null" >
+        mainPic = #{mainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="countrysideName != null" >
+        countryside_name = #{countrysideName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idCountrysideColl = #{idcountrysidecoll,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.CountrysideColl" >
+    update countrysidecoll
+    set CollTime = #{colltime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      user_userid = #{userUserid,jdbcType=INTEGER},
+      country_id = #{countryId,jdbcType=INTEGER},
+      mainPic = #{mainpic,jdbcType=VARCHAR},
+      countryside_name = #{countrysideName,jdbcType=VARCHAR}
+    where idCountrysideColl = #{idcountrysidecoll,jdbcType=INTEGER}
+  </update>
+</mapper>
