@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.AddExamineMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Country" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sights" property="sights" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="AC" property="ac" jdbcType="VARCHAR" />
+    <result column="RC" property="rc" jdbcType="VARCHAR" />
+    <result column="CC" property="cc" jdbcType="VARCHAR" />
+    <result column="TARGETSUM" property="targetsum" jdbcType="INTEGER" />
+    <result column="SCORE" property="score" jdbcType="DOUBLE" />
+    <result column="mianPic" property="mianpic" jdbcType="VARCHAR" />
+    <result column="hotels" property="hotels" jdbcType="INTEGER" />
+    <result column="restaurants" property="restaurants" jdbcType="INTEGER" />
+    <result column="examine" property="examine" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />    
+    <result column="addtime" property="addtime" jdbcType="DATE" />
+  </resultMap>
+  
+   <resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.CountryWithBLOBs" extends="BaseResultMap" >
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+    <result column="culture" property="culture" jdbcType="LONGVARCHAR" />
+    <result column="activities" property="activities" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+   <resultMap id="ScenicspotMap" type="com.cn.hnust.pojo.ScenicSpot" >
+   <id column="scenicspotid" property="scenicspotid" jdbcType="INTEGER"/>
+   <result column="scenicspot_id" property="scenicspotid" jdbcType="INTEGER"/>
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="synosis" property="synosis" jdbcType="VARCHAR" />
+   <result column="location" property="location" jdbcType="VARCHAR" />
+   <result column="price" property="price" jdbcType="INTEGER" />
+   <result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+   <result column="address" property="address" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+   <result column="cover" property="cover" jdbcType="VARCHAR" />
+   <result column="pices" property="pices" jdbcType="VARCHAR" />
+   <result column="video" property="video" jdbcType="VARCHAR" />
+   <result column="examine" property="examine" jdbcType="INTEGER" />
+   <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />   
+    </resultMap>
+    
+  <resultMap id="RestaurantMap" type="com.cn.hnust.pojo.Restaurant" >
+   <id column="restaurantid" property="restaurantid" jdbcType="INTEGER"/>
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="synosis" property="synopsis" jdbcType="VARCHAR" />
+   <result column="location" property="location" jdbcType="VARCHAR" />
+   <result column="perprice" property="perprice" jdbcType="INTEGER" />
+   <result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+   <result column="address" property="address" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+   <result column="cover" property="cover" jdbcType="VARCHAR" />
+   <result column="pices" property="pices" jdbcType="VARCHAR" />
+   <result column="video" property="video" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+    <result column="examine" property="examine" jdbcType="INTEGER" />  
+    <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />   
+    
+   </resultMap>
+  <resultMap id="HotelMap" type="com.cn.hnust.pojo.Hotel" >
+   <id column="idhotel" property="idhotel" jdbcType="INTEGER"/>
+   <result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+   <result column="score" property="score" jdbcType="VARCHAR" />
+   <result column="mainPic" property="mainpic" jdbcType="VARCHAR" />
+   <result column="lowPrice" property="lowprice" jdbcType="VARCHAR" />
+   <result column="location" property="location" jdbcType="VARCHAR" />
+   <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+   <result column="phone" property="phone" jdbcType="VARCHAR" />
+   <result column="video" property="video" jdbcType="VARCHAR" />
+   <result column="detailLocation" property="detaillocation" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+   <result column="examine" property="examine" jdbcType="INTEGER" />
+     <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />   
+    </resultMap>
+    
+    <resultMap id="RecordUserMap" type="com.cn.hnust.pojo.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER"/>
+    <result column="articles" property="articles" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR"/>
+    <result column="useremail" property="useremail" jdbcType="VARCHAR"/>
+    <result column="wechat" property="wechat" jdbcType="VARCHAR"/>
+    <result column="alltime" property="alltime" jdbcType="TIME" />
+    <result column="lasttime" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="headPic" property="headpic" jdbcType="VARCHAR"/>
+    <result column="favorite" property="favorite" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="SpecialtyMap" type="com.cn.hnust.pojo.Specialty">
+    <id column="idspecialty" property="idspecialty" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="src" property="src" jdbcType="VARCHAR"/>
+    <result column="SPdescribe" property="SPdescribe" jdbcType="VARCHAR"/>    
+    <result column="country_id" property="countryid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+  <select id="showCountryInExamine" resultMap="ResultMapWithBLOBs"  parameterType="java.lang.String">
+  select id,name,location,introduce,mianPic,culture,activities
+  from country
+  where name=#{name,jdbcType=VARCHAR}  
+  </select>
+  <select id="showCountryphotoInExamine" resultType="java.lang.String" parameterType="java.lang.Integer">
+  select src
+  from countryphoto
+  where country_id=#{cid,jdbcType=INTEGER}
+  </select>
+  <select id="showCountryvideoInExamine" resultType="java.lang.String" parameterType="java.lang.Integer">
+  select src
+  from countryvideo
+  where country_id=#{cid,jdbcType=INTEGER}
+  </select>
+   <select id="showCountryspecialtyInExamine" resultMap="SpecialtyMap" parameterType="java.lang.Integer">
+  select name,src
+  from specialty
+  where country_id=#{cid,jdbcType=INTEGER}
+  </select>
+  
+  
+ <select id="showRestaurantInExamine" resultMap="RestaurantMap"  parameterType="java.lang.String">
+  select restaurantid,name,synopsis,location,perprice,cinformation,address,cover,pices,video
+  from restaurant
+  where name=#{rname,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="showScenicspotInExamine" resultMap="ScenicspotMap"  parameterType="java.lang.String">
+  select scenicspotid,name,synosis,location,price,cinformation,address,cover,pices,video
+  from scenicspot
+  where name=#{sname,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="showHotelInExamine" resultMap="HotelMap"  parameterType="java.lang.String">
+  select idhotel,hotelname,mainPic,lowPrice,location,introduce,phone,video,detailLocation
+  from hotel
+  where hotelname=#{hname,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

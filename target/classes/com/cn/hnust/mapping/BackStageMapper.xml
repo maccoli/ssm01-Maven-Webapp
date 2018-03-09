@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.BackStageMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Country" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sights" property="sights" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="AC" property="ac" jdbcType="VARCHAR" />
+    <result column="RC" property="rc" jdbcType="VARCHAR" />
+    <result column="CC" property="cc" jdbcType="VARCHAR" />
+    <result column="TARGETSUM" property="targetsum" jdbcType="INTEGER" />
+    <result column="SCORE" property="score" jdbcType="DOUBLE" />
+    <result column="mianPic" property="mianpic" jdbcType="VARCHAR" />
+    <result column="hotels" property="hotels" jdbcType="INTEGER" />
+    <result column="restaurants" property="restaurants" jdbcType="INTEGER" />
+    <result column="examine" property="examine" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />    
+    <result column="addtime" property="addtime" jdbcType="DATE" />
+  </resultMap>
+  
+   <resultMap id="ScenicspotMap" type="com.cn.hnust.pojo.ScenicSpot" >
+   <id column="scenicspotid" property="scenicspotid" jdbcType="INTEGER"/>
+   <result column="scenicspot_id" property="scenicspotid" jdbcType="INTEGER"/>
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+   <result column="cover" property="cover" jdbcType="VARCHAR" />
+   <result column="examine" property="examine" jdbcType="INTEGER" />
+   <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />   
+    </resultMap>
+    
+  <resultMap id="RestaurantMap" type="com.cn.hnust.pojo.Restaurant" >
+   <id column="restaurantid" property="restaurantid" jdbcType="INTEGER"/>
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+    <result column="examine" property="examine" jdbcType="INTEGER" />  
+    <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />   
+   </resultMap>
+   
+  <resultMap id="HotelMap" type="com.cn.hnust.pojo.Hotel" >
+   <id column="idhotel" property="idhotel" jdbcType="INTEGER"/>
+   <result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+   <result column="addtime" property="addtime" jdbcType="DATE" />
+   <result column="examine" property="examine" jdbcType="INTEGER" />
+     <result column="userid" property="userid" jdbcType="INTEGER" /> 
+    <result column="username" property="username" jdbcType="VARCHAR" />   
+    </resultMap>
+    
+    <resultMap id="RecordUserMap" type="com.cn.hnust.pojo.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER"/>
+    <result column="articles" property="articles" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR"/>
+    <result column="useremail" property="useremail" jdbcType="VARCHAR"/>
+    <result column="wechat" property="wechat" jdbcType="VARCHAR"/>
+    <result column="alltime" property="alltime" jdbcType="TIME" />
+    <result column="lasttime" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="headPic" property="headpic" jdbcType="VARCHAR"/>
+    <result column="favorite" property="favorite" jdbcType="VARCHAR"/>
+    </resultMap>
+
+<resultMap id="ipDeptResult" type="java.util.HashMap">
+    <result property="key" column="ip"/>
+    <result property="value" column="dept"/>
+</resultMap>
+
+
+  <select id="getUsercollByCountry" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  select count(user_userid) 
+  from countrysidecoll
+  where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getSRHByCountry" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select name,sights,hotels,restaurants,examine
+  from country
+  where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getScenicspotByCountry" resultMap="ScenicspotMap" parameterType="java.util.List">
+  select scenicspotid,name,addtime,examine
+  from scenicspot
+  where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getRestaurantByCountry" resultMap="RestaurantMap" parameterType="java.util.List">
+  select restaurantid,name,addtime,examine
+  from restaurant
+  where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getHotelByCountry" resultMap="HotelMap" parameterType="java.util.List">
+  select idhotel,hotelname,addtime,examine
+  from hotel
+  where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getScenicspotcollByUser" resultType="java.lang.Integer" parameterType="java.util.List">
+  select count(user_id)
+  from scenicspotcoll
+  where scenicspot_id in
+  <foreach collection="list" item="item" index="index"
+           open="(" separator="," close=")">
+           #{item}
+  </foreach>
+   group by user_id
+  </select>
+  
+  <select id="getRestaurantcollByUser" resultType="java.lang.Integer" parameterType="java.util.List">
+  select count(user_id) 
+  from restaurantcoll
+  where  restaurant_id in
+  <foreach collection="list" item="item" index="index"
+           open="(" separator="," close=")">
+        #{item}
+  </foreach>
+   group by user_id
+  </select>
+  
+  <select id="getHotelcollByUser" resultType="java.lang.Integer" parameterType="java.util.List">
+  select count(user_id) 
+  from hotelcoll
+  where hotel_id in
+  <foreach collection="list" item="item" index="index"
+           open="(" separator="," close=")" >
+           #{item}
+  </foreach>
+   group by user_id
+  </select>
+
+
+  <select id="getRecordtimeByuser" resultMap="RecordUserMap" parameterType="java.lang.Integer">
+  select userid,username,articles,alltime,lasttime
+  from user
+  </select>
+  
+  <select id="getUsernameByid" resultMap="RecordUserMap" parameterType="java.lang.Integer">
+  select username,phone,useremail,wechat,headPic,favorite
+  from user
+  where userid=#{userid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCollByUserid" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  select scenicspot_id
+  from scenicspotcoll
+  where user_id=#{userid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getScenicspotBysid" resultMap="ScenicspotMap"  parameterType="java.lang.Integer">
+  select scenicspotid,name,cover,addtime
+  from scenicspot
+  where scenicspotid=#{scenicspotid,jdbcType=INTEGER}
+  </select>
+
+ 
+  <select id="getCountryInExamine" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+  select id,name,addtime,userid,username,examine
+  from country  
+  </select>
+  
+ <select id="getRestaurantInExamine" resultMap="RestaurantMap"  parameterType="java.lang.Integer">
+  select restaurantid,name,addtime,userid,username,examine
+  from restaurant
+  </select>
+  
+  <select id="getScenicspotInExamine" resultMap="ScenicspotMap"  parameterType="java.lang.Integer">
+  select scenicspotid,name,addtime,userid,username,examine
+  from scenicspot
+  </select>
+  
+  <select id="getHotelInExamine" resultMap="HotelMap"  parameterType="java.lang.Integer">
+  select idhotel,hotelname,addtime,userid,username,examine
+  from hotel
+  </select>
+  
+  <update id="updateCountryInExamine" parameterType="com.cn.hnust.pojo.Country">
+  update country
+  set examine=#{examine,jdbcType=INTEGER}
+  where name=#{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateRestaurantInExamine" parameterType="com.cn.hnust.pojo.Restaurant">
+  update restaurant
+  set examine=#{examine,jdbcType=INTEGER}
+  where name=#{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateScenicspotInExamine" parameterType="com.cn.hnust.pojo.ScenicSpot">
+  update scenicspot
+  set examine=#{examine,jdbcType=INTEGER}
+  where name=#{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateHotelInExamine" parameterType="com.cn.hnust.pojo.Hotel">
+  update hotel
+  set examine=#{examine,jdbcType=INTEGER}
+  where hotelname=#{hotelname,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getAllUser" resultType="java.lang.Integer" >
+  select count(userid)
+  from user
+  </select>
+  
+  <select id="getAllArticleByUser" resultType="java.lang.Integer" >
+  select sum(articles)
+  from user
+  </select>
+</mapper>

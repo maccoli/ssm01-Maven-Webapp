@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.ScenicSpotMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hnust.pojo.ScenicSpot">
+		<id column="scenicspotid" property="scenicspotid" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="INTEGER" />
+		<result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="cover" property="cover" jdbcType="VARCHAR" />
+		<result column="pices" property="pices" jdbcType="VARCHAR" />
+		<result column="video" property="video" jdbcType="VARCHAR" />
+		<result column="country_id" property="countryId" jdbcType="INTEGER" />
+		<result column="addtime" property="addtime" jdbcType="VARCHAR" />
+		<result column="examine" property="examine" jdbcType="INTEGER" />
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="tag1" property="tag1" jdbcType="CHAR" />
+		<result column="tag2" property="tag2" jdbcType="CHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.ScenicSpot"
+		extends="BaseResultMap">
+		<result column="synosis" property="synosis" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		scenicspotid, name, location, price, cinformation, address, cover, pices, video,
+		country_id, addtime, examine, userid, username, tag1, tag2
+	</sql>
+	<sql id="Blob_Column_List">
+		synosis
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from scenicspot
+		where scenicspotid = #{scenicspotid,jdbcType=INTEGER}
+	</select>
+	<select id="getCountrysideSopts" resultMap="ResultMapWithBLOBs"
+		parameterType="com.cn.hnust.pojo.CountryWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from scenicspot
+		where country_id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="getAllSpotNames" resultType="java.lang.String"
+		parameterType="java.lang.Integer">
+		select name from scenicspot
+	</select>
+	
+	<select id="getSpotsByTag1" resultMap="ResultMapWithBLOBs" parameterType="Map">
+		select * from scenicspot where FIND_IN_SET(#{type},tag1)
+	</select>
+	
+	<select id="getSpotsByTag2" resultMap="ResultMapWithBLOBs" parameterType="Map">
+		select * from scenicspot where FIND_IN_SET(#{type},tag2)
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from scenicspot
+		where scenicspotid = #{scenicspotid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hnust.pojo.ScenicSpot">
+		insert into scenicspot (scenicspotid, name, location,
+		price, cinformation, address,
+		cover, pices, video,
+		country_id, addtime, examine,
+		userid, username, tag1,
+		tag2, synosis)
+		values (#{scenicspotid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{location,jdbcType=VARCHAR},
+		#{price,jdbcType=INTEGER}, #{cinformation,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{cover,jdbcType=VARCHAR}, #{pices,jdbcType=VARCHAR},
+		#{video,jdbcType=VARCHAR},
+		#{countryId,jdbcType=INTEGER}, #{addtime,jdbcType=VARCHAR}, #{examine,jdbcType=INTEGER},
+		#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
+		#{tag1,jdbcType=CHAR},
+		#{tag2,jdbcType=CHAR}, #{synosis,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hnust.pojo.ScenicSpot">
+		insert into scenicspot
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="scenicspotid != null">
+				scenicspotid,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="location != null">
+				location,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="cinformation != null">
+				cinformation,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="cover != null">
+				cover,
+			</if>
+			<if test="pices != null">
+				pices,
+			</if>
+			<if test="video != null">
+				video,
+			</if>
+			<if test="countryId != null">
+				country_id,
+			</if>
+			<if test="addtime != null">
+				addtime,
+			</if>
+			<if test="examine != null">
+				examine,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="tag1 != null">
+				tag1,
+			</if>
+			<if test="tag2 != null">
+				tag2,
+			</if>
+			<if test="synosis != null">
+				synosis,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="scenicspotid != null">
+				#{scenicspotid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=INTEGER},
+			</if>
+			<if test="cinformation != null">
+				#{cinformation,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="cover != null">
+				#{cover,jdbcType=VARCHAR},
+			</if>
+			<if test="pices != null">
+				#{pices,jdbcType=VARCHAR},
+			</if>
+			<if test="video != null">
+				#{video,jdbcType=VARCHAR},
+			</if>
+			<if test="countryId != null">
+				#{countryId,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				#{addtime,jdbcType=VARCHAR},
+			</if>
+			<if test="examine != null">
+				#{examine,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="tag1 != null">
+				#{tag1,jdbcType=CHAR},
+			</if>
+			<if test="tag2 != null">
+				#{tag2,jdbcType=CHAR},
+			</if>
+			<if test="synosis != null">
+				#{synosis,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.ScenicSpot">
+		update scenicspot
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				location = #{location,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=INTEGER},
+			</if>
+			<if test="cinformation != null">
+				cinformation = #{cinformation,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="cover != null">
+				cover = #{cover,jdbcType=VARCHAR},
+			</if>
+			<if test="pices != null">
+				pices = #{pices,jdbcType=VARCHAR},
+			</if>
+			<if test="video != null">
+				video = #{video,jdbcType=VARCHAR},
+			</if>
+			<if test="countryId != null">
+				country_id = #{countryId,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=VARCHAR},
+			</if>
+			<if test="examine != null">
+				examine = #{examine,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="tag1 != null">
+				tag1 = #{tag1,jdbcType=CHAR},
+			</if>
+			<if test="tag2 != null">
+				tag2 = #{tag2,jdbcType=CHAR},
+			</if>
+			<if test="synosis != null">
+				synosis = #{synosis,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where scenicspotid = #{scenicspotid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.pojo.ScenicSpot">
+		update scenicspot
+		set name = #{name,jdbcType=VARCHAR},
+		location = #{location,jdbcType=VARCHAR},
+		price = #{price,jdbcType=INTEGER},
+		cinformation = #{cinformation,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		cover = #{cover,jdbcType=VARCHAR},
+		pices = #{pices,jdbcType=VARCHAR},
+		video = #{video,jdbcType=VARCHAR},
+		country_id = #{countryId,jdbcType=INTEGER},
+		addtime = #{addtime,jdbcType=VARCHAR},
+		examine = #{examine,jdbcType=INTEGER},
+		userid = #{userid,jdbcType=INTEGER},
+		username = #{username,jdbcType=VARCHAR},
+		tag1 = #{tag1,jdbcType=CHAR},
+		tag2 = #{tag2,jdbcType=CHAR},
+		synosis = #{synosis,jdbcType=LONGVARCHAR}
+		where scenicspotid = #{scenicspotid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.ScenicSpot">
+		update scenicspot
+		set name = #{name,jdbcType=VARCHAR},
+		location = #{location,jdbcType=VARCHAR},
+		price = #{price,jdbcType=INTEGER},
+		cinformation = #{cinformation,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		cover = #{cover,jdbcType=VARCHAR},
+		pices = #{pices,jdbcType=VARCHAR},
+		video = #{video,jdbcType=VARCHAR},
+		country_id = #{countryId,jdbcType=INTEGER},
+		addtime = #{addtime,jdbcType=VARCHAR},
+		examine = #{examine,jdbcType=INTEGER},
+		userid = #{userid,jdbcType=INTEGER},
+		username = #{username,jdbcType=VARCHAR},
+		tag1 = #{tag1,jdbcType=CHAR},
+		tag2 = #{tag2,jdbcType=CHAR}
+		where scenicspotid = #{scenicspotid,jdbcType=INTEGER}
+	</update>
+</mapper>

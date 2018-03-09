@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.ArticleMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Article">
+		<id column="idarticle" property="idarticle" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="articletime" property="articletime" jdbcType="DATE" />
+		<result column="mainPic" property="mainpic" jdbcType="VARCHAR" />
+		<result column="stars" property="stars" jdbcType="INTEGER" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="user_userid" property="userUserid" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.pojo.Article"
+		extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		idarticle, name, username, articletime, mainPic, stars, location, user_userid
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		where idarticle = #{idarticle,jdbcType=INTEGER}
+	</select>
+
+	<select id="getUserArticles" resultMap="ResultMapWithBLOBs"
+		parameterType="com.cn.hnust.pojo.User">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		where user_userid = #{userid,jdbcType=INTEGER}
+	</select>
+
+	<select id="getCountrysideArticles" resultMap="ResultMapWithBLOBs"
+		parameterType="com.cn.hnust.pojo.CountryWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		where location = #{location,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectArticleByMap" parameterType="Map" resultMap="ResultMapWithBLOBs">
+		select * from article
+		<if test="start!=null and pagesize!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from article
+		where idarticle = #{idarticle,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hnust.pojo.Article">
+		insert into article (idarticle, name, username,
+		articletime, mainPic, stars,
+		location, user_userid, content
+		)
+		values (#{idarticle,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{articletime,jdbcType=DATE}, #{mainpic,jdbcType=VARCHAR}, #{stars,jdbcType=INTEGER},
+		#{location,jdbcType=VARCHAR}, #{userUserid,jdbcType=INTEGER},
+		#{content,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hnust.pojo.Article">
+		insert into article
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="idarticle != null">
+				idarticle,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="articletime != null">
+				articletime,
+			</if>
+			<if test="mainpic != null">
+				mainPic,
+			</if>
+			<if test="stars != null">
+				stars,
+			</if>
+			<if test="location != null">
+				location,
+			</if>
+			<if test="userUserid != null">
+				user_userid,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="idarticle != null">
+				#{idarticle,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="articletime != null">
+				#{articletime,jdbcType=DATE},
+			</if>
+			<if test="mainpic != null">
+				#{mainpic,jdbcType=VARCHAR},
+			</if>
+			<if test="stars != null">
+				#{stars,jdbcType=INTEGER},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+			<if test="userUserid != null">
+				#{userUserid,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.Article">
+		update article
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="articletime != null">
+				articletime = #{articletime,jdbcType=DATE},
+			</if>
+			<if test="mainpic != null">
+				mainPic = #{mainpic,jdbcType=VARCHAR},
+			</if>
+			<if test="stars != null">
+				stars = #{stars,jdbcType=INTEGER},
+			</if>
+			<if test="location != null">
+				location = #{location,jdbcType=VARCHAR},
+			</if>
+			<if test="userUserid != null">
+				user_userid = #{userUserid,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where idarticle = #{idarticle,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.pojo.Article">
+		update article
+		set name = #{name,jdbcType=VARCHAR},
+		username = #{username,jdbcType=VARCHAR},
+		articletime = #{articletime,jdbcType=DATE},
+		mainPic = #{mainpic,jdbcType=VARCHAR},
+		stars = #{stars,jdbcType=INTEGER},
+		location = #{location,jdbcType=VARCHAR},
+		user_userid = #{userUserid,jdbcType=INTEGER},
+		content = #{content,jdbcType=LONGVARCHAR}
+		where idarticle = #{idarticle,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Article">
+		update article
+		set name = #{name,jdbcType=VARCHAR},
+		username = #{username,jdbcType=VARCHAR},
+		articletime = #{articletime,jdbcType=DATE},
+		mainPic = #{mainpic,jdbcType=VARCHAR},
+		stars = #{stars,jdbcType=INTEGER},
+		location = #{location,jdbcType=VARCHAR},
+		user_userid = #{userUserid,jdbcType=INTEGER}
+		where idarticle = #{idarticle,jdbcType=INTEGER}
+	</update>
+</mapper>

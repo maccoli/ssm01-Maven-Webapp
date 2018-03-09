@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.CountrysideUserMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.CountrysideUser" >
+    <id column="idcountrysideUser" property="idcountrysideuser" jdbcType="INTEGER" />
+    <result column="useremail" property="useremail" jdbcType="VARCHAR" />
+    <result column="userpassword" property="userpassword" jdbcType="VARCHAR" />
+    <result column="headPic" property="headpic" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="countryside_id" property="countrysideId" jdbcType="VARCHAR" />
+    <result column="userphone" property="userphone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idcountrysideUser, useremail, userpassword, headPic, name, idcard, countryside_id, 
+    userphone, sex, city
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from countrysideuser
+    where idcountrysideUser = #{idcountrysideuser,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from countrysideuser
+    where name = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from countrysideuser
+    where userphone = #{userphone,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCountByName" resultType="java.lang.Integer" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    select count(*)
+    from countrysideuser
+    where name = #{name,jdbcType=VARCHAR} AND idcountrysideuser !=#{idcountrysideuser}
+  </select>
+  
+    <select id="selectCountByPhone" resultType="java.lang.Integer" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    select count(*)
+    from countrysideuser
+    where userphone = #{userphone,jdbcType=VARCHAR} AND idcountrysideuser !=#{idcountrysideuser}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from countrysideuser
+    where idcountrysideUser = #{idcountrysideuser,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    insert into countrysideuser (idcountrysideUser, useremail, userpassword, 
+      headPic, name, idcard, 
+      countryside_id, userphone, sex, 
+      city)
+    values (#{idcountrysideuser,jdbcType=INTEGER}, #{useremail,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{headpic,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{countrysideId,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    insert into countrysideuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idcountrysideuser != null" >
+        idcountrysideUser,
+      </if>
+      <if test="useremail != null" >
+        useremail,
+      </if>
+      <if test="userpassword != null" >
+        userpassword,
+      </if>
+      <if test="headpic != null" >
+        headPic,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="countrysideId != null" >
+        countryside_id,
+      </if>
+      <if test="userphone != null" >
+        userphone,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idcountrysideuser != null" >
+        #{idcountrysideuser,jdbcType=INTEGER},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="headpic != null" >
+        #{headpic,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="countrysideId != null" >
+        #{countrysideId,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id="insertnewUser" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    insert into countrysideuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idcountrysideuser != null" >
+        idcountrysideUser,
+      </if>
+      <if test="useremail != null" >
+        useremail,
+      </if>
+      <if test="userpassword != null" >
+        userpassword,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="userphone != null" >
+        userphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idcountrysideuser != null" >
+        #{idcountrysideuser,jdbcType=INTEGER},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    update countrysideuser
+    <set >
+      <if test="useremail != null" >
+        useremail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userpassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="headpic != null" >
+        headPic = #{headpic,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="countrysideId != null" >
+        countryside_id = #{countrysideId,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        userphone = #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idcountrysideUser = #{idcountrysideuser,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.CountrysideUser" >
+    update countrysideuser
+    set useremail = #{useremail,jdbcType=VARCHAR},
+      userpassword = #{userpassword,jdbcType=VARCHAR},
+      headPic = #{headpic,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      countryside_id = #{countrysideId,jdbcType=VARCHAR},
+      userphone = #{userphone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR}
+    where idcountrysideUser = #{idcountrysideuser,jdbcType=INTEGER}
+  </update>
+</mapper>

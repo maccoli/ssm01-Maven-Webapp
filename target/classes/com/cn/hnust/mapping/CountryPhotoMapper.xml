@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.CountryPhotoMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.CountryPhoto" >
+    <id column="idcountryPhoto" property="idcountryphoto" jdbcType="INTEGER" />
+    <result column="src" property="src" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idcountryPhoto, src, country_id, name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from countryphoto
+    where idcountryPhoto = #{idcountryphoto,jdbcType=INTEGER}
+  </select>
+  <!-- 获取一个乡村所有的展示图片 -->
+  <select id="getCountryPhotos" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.Country" >
+    select 
+    <include refid="Base_Column_List" />
+    from countryphoto
+    where country_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from countryphoto
+    where idcountryPhoto = #{idcountryphoto,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBycountrysideId" parameterType="java.lang.Integer" >
+    delete from countryphoto
+    where country_id = #{countrysideId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.cn.hnust.pojo.CountryPhoto" >
+    insert into countryphoto (idcountryPhoto, src, country_id, 
+      name)
+    values (#{idcountryphoto,jdbcType=INTEGER}, #{src,jdbcType=VARCHAR}, #{countryId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.CountryPhoto" >
+    insert into countryphoto
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idcountryphoto != null" >
+        idcountryPhoto,
+      </if>
+      <if test="src != null" >
+        src,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idcountryphoto != null" >
+        #{idcountryphoto,jdbcType=INTEGER},
+      </if>
+      <if test="src != null" >
+        #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.CountryPhoto" >
+    update countryphoto
+    <set >
+      <if test="src != null" >
+        src = #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idcountryPhoto = #{idcountryphoto,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.CountryPhoto" >
+    update countryphoto
+    set src = #{src,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR}
+    where idcountryPhoto = #{idcountryphoto,jdbcType=INTEGER}
+  </update>
+</mapper>
