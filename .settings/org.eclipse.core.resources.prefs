@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/cn/hnust/controller/ArticleController.java=UTF-8
+encoding//src/main/java/com/cn/hnust/controller/BackStageController.java=UTF-8
+encoding//src/main/java/com/cn/hnust/controller/CountrysideCollController.java=UTF-8
+encoding//src/main/java/com/cn/hnust/controller/CountrysideUserController.java=UTF-8
+encoding//src/main/java/com/cn/hnust/controller/UserController.java=UTF-8
+encoding//src/main/java/com/cn/hnust/dao/UserMapper.java=UTF-8
+encoding//src/main/java/com/cn/hnust/service/impl/CountrysideUserServiceImpl.java=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/index.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/register.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/verificationFailure.jsp=UTF-8
+encoding//src/main/webapp/img/upload/2017.txt=UTF-8
